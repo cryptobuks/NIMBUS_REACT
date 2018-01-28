@@ -1,10 +1,30 @@
-body {
-  font: 14px "Century Gothic", Futura, sans-serif;
-  margin: 20px;
+.homebanner {
+  background-image: url("./images/nimbus_home.jpg");
+  background-size: 100% 100%;
 }
 
-ol, ul {
-  padding-left: 30px;
+.grey{
+  color: white;
+}
+
+.white{
+  color: white;
+}
+
+.btn_oy{
+  background-color: #f48c41;
+  border: none;
+  text-align: center;
+}
+
+.btn_oy:hover{
+  background-color: #f46441;
+  border: none;
+  text-align: center;
+}
+
+body {
+  padding-top: 3.5rem;
 }
 
 .board-row:after {
@@ -47,4 +67,8 @@ ol, ul {
 
 .game-info {
   margin-left: 20px;
+}
+
+.bgimg {
+    background-image: './images/nimbus_home.jpg';
 }
