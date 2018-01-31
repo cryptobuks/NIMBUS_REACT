@@ -15,6 +15,7 @@ tether
 jquery
 bootstrap
 react-bootstrap
+react-router-dom
 
 Needed for bcrypt:
 npm install --save --production windows-build-tools
