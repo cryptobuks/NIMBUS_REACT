@@ -1,12 +1,13 @@
 A web application for tracking mining statistics for clients
 
-TODO:
-Home Page/About Page
-User Registration
-User Login and Authentication
-User Dashboard (APIs for getting wallet balance)
+How to use:
+1. Initial setup
+Run npm install
 
-To install dependencies locally : npm install --save
+2. To run the application
+Windows
+Open up two instances of CMD and run :
+npm start and node app.js on separate windows
 
 Dependencies installed so far:
 react
@@ -16,6 +17,13 @@ jquery
 bootstrap
 react-bootstrap
 react-router-dom
+express
+body-parser
+nodemon
+mongoose
+bcrypt
+express-session
+connect-mongo
 
 Needed for bcrypt:
 npm install --save --production windows-build-tools

@@ -3,6 +3,10 @@
   background-size: 100% 100%;
 }
 
+.responsivetext{
+	font-size: 2.3vmin;
+}
+
 .grey{
   color: white;
 }

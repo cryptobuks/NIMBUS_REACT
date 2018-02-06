@@ -13,7 +13,7 @@ class HomeBanner extends React.Component {
 				<div class="jumbotron specialjum homebanner">
 					<div class="over container body-content">
 						<h1 class="display-3 grey">Welcome to Nimbus.</h1>
-						<p class = "white">At Nimbus, our goal is the delivery of excellence in terms of standard and service by providing mining solutions with turnkey approach. With design experience, technical knowledge and innovative culture, our dedicated team is focused on continuously improving efficiency and user experience to ensure the most value for our investors as well as accomodating their dynamic needs.</p>
+						<p class = "white responsivetext">At Nimbus, our goal is the delivery of excellence in terms of standard and service by providing mining solutions with turnkey approach. With design experience, technical knowledge and innovative culture, our dedicated team is focused on continuously improving efficiency and user experience to ensure the most value for our investors as well as accomodating their dynamic needs.</p>
 						<p><a class="btn btn-primary btn-lg btn_oy" href="#" role="button">Learn more &raquo;</a></p>
 					</div>
 				</div>
