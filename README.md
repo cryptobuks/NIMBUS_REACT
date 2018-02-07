@@ -24,6 +24,7 @@ mongoose
 bcrypt
 express-session
 connect-mongo
+axios
 
 Needed for bcrypt:
 npm install --save --production windows-build-tools

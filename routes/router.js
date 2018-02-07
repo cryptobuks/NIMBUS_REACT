@@ -36,8 +36,7 @@ router.post('/api/login', function (req, res, next) {
         return next(error);
       } else {
         req.session.userId = user._id;
-		return res.send(JSON.stringify({username: user.username, email: user.email}));
-        return res.redirect('/profile');
+		return res.redirect('/api/profile');
       }
     });
 
@@ -49,8 +48,7 @@ router.post('/api/login', function (req, res, next) {
         return next(err);
       } else {
         req.session.userId = user._id;
-		return res.send(JSON.stringify({username: user.username, email: user.email}));
-        return res.redirect('/profile');
+		return res.redirect('/api/profile');
       }
     });
   } else {
