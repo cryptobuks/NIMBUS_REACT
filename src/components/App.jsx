@@ -2,6 +2,7 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import NavBarFixed from './NavBarFixed.jsx';
 import HomePage from './HomePage.jsx';
+import DashBoard from './Login.jsx';
 
 const App = () => (
   <div>
@@ -10,8 +11,8 @@ const App = () => (
         <Route exact path='/'>
           <NavBarFixed  active ={'home'} />
         </Route>
-        <Route exact path='/home'>
-          <NavBarFixed  active ={'link'} />
+		<Route exact path='/dashboard'>
+          <NavBarFixed  active ={'login'} />
         </Route>
       </Switch>
     </header>
@@ -20,6 +21,7 @@ const App = () => (
       <Switch>
         <Route exact path='/' component={HomePage}/>
         <Route path='/home' component={HomePage}/>
+		<Route path='/dashboard' component={DashBoard}/>
       </Switch>
     </main>
   </div>

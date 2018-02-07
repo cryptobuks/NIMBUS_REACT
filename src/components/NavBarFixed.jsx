@@ -5,12 +5,12 @@ import {Link} from 'react-router-dom';
 export default class NavBarFixed extends React.Component {
 	constructor(props) {
     super(props);
-    this.state = {home:false, link:false, disabled:false};
+    this.state = {home:false, login:false, disabled:false};
 		if(props.active == 'home'){
 			this.state = {home:true};
 		}
-		else if(props.active == 'link'){
-			this.state = {link:true};
+		else if(props.active == 'login'){
+			this.state = {login:true};
 		}
 		else if(props.active == 'disabled'){
 			this.state = {disabled:true};
@@ -19,7 +19,7 @@ export default class NavBarFixed extends React.Component {
 
 	render() {
 		const home = this.state.home;
-		const link = this.state.link;
+		const login = this.state.login;
 		const disabled = this.state.disabled;
 
     return (
@@ -33,11 +33,11 @@ export default class NavBarFixed extends React.Component {
             <ul class="navbar-nav mr-auto">
 
 							<li class={home ? 'nav-item active' : 'nav-item'}>
-								<a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+								<a class="nav-link" href="/">Home<span class="sr-only">(current)</span></a>
 							</li>
 
-							<li class={link ? 'nav-item active' : 'nav-item'}>
-								<a class="nav-link" href="#">Link</a>
+							<li class={login ? 'nav-item active' : 'nav-item'}>
+								<a class="nav-link" href="/dashboard">Login</a>
 							</li>
 
 							<li class={disabled ? 'nav-item active' : 'nav-item'}>

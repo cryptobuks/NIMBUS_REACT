@@ -4,14 +4,13 @@ var User = require('../models/user');
 
 
 // GET route for reading data
-router.get('/', function (req, res, next) {
+router.get('/test', function (req, res, next) {
 	res.send("hi");
-  //return res.sendFile(path.join(__dirname + '/templateLogReg/index.html'));
 });
 
 
 //POST route for updating data
-router.post('/', function (req, res, next) {
+router.post('/api/login', function (req, res, next) {
   // confirm that user typed same password twice
   if (req.body.password !== req.body.passwordConf) {
     var err = new Error('Passwords do not match.');
@@ -37,6 +36,7 @@ router.post('/', function (req, res, next) {
         return next(error);
       } else {
         req.session.userId = user._id;
+		return res.send(JSON.stringify({username: user.username, email: user.email}));
         return res.redirect('/profile');
       }
     });
@@ -49,6 +49,7 @@ router.post('/', function (req, res, next) {
         return next(err);
       } else {
         req.session.userId = user._id;
+		return res.send(JSON.stringify({username: user.username, email: user.email}));
         return res.redirect('/profile');
       }
     });
@@ -60,7 +61,7 @@ router.post('/', function (req, res, next) {
 })
 
 // GET route after registering
-router.get('/profile', function (req, res, next) {
+router.get('/api/profile', function (req, res, next) {
   User.findById(req.session.userId)
     .exec(function (error, user) {
       if (error) {
@@ -71,14 +72,15 @@ router.get('/profile', function (req, res, next) {
           err.status = 400;
           return next(err);
         } else {
-          return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
+		  return res.send(JSON.stringify({username: user.username, email: user.email}));
+          //return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
         }
       }
     });
 });
 
 // GET for logout logout
-router.get('/logout', function (req, res, next) {
+router.get('/api//logout', function (req, res, next) {
   if (req.session) {
     // delete session object
     req.session.destroy(function (err) {
