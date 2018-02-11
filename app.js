@@ -5,19 +5,19 @@ var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
+//Specify port for express to run on
 const port = process.env.PORT || 3000;
 
 //connect to MongoDB
-mongoose.connect('mongodb://localhost/testForAuth');
+mongoose.connect('mongodb://localhost/nimbusGroup');
 var db = mongoose.connection;
 
 //handle mongo error
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function () {
-  // we're connected!
 });
 
-//use sessions for tracking logins
+//Sessions for keeping track of login token, change the secret used in cookie generation for your own use
 app.use(session({
   secret: 'work hard',
   resave: true,
@@ -31,6 +31,7 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//Additional header options
 app.use(function(req, res, next) {
  res.setHeader('Access-Control-Allow-Origin', '*');
  res.setHeader('Access-Control-Allow-Credentials', 'true');
@@ -40,19 +41,19 @@ app.use(function(req, res, next) {
  next();
 });
 
-// include routes
+//Include routes
 var routes = require('./routes/router');
 app.use('/', routes);
 
 
-// catch 404 and forward to error handler
+//Catch 404 and forward to error handler
 app.use(function (req, res, next) {
   var err = new Error('File Not Found');
   err.status = 404;
   next(err);
 });
 
-// error handler
+// Error handler
 // define as the last app.use callback
 app.use(function (err, req, res, next) {
   res.status(err.status || 500);
@@ -60,7 +61,7 @@ app.use(function (err, req, res, next) {
 });
 
 
-// listen on port 3000, needs to run separately from react
+// Listen on port 3000, needs to run separately from react
 app.listen(port, function () {
   console.log('Express app listening on port ' + port);
 });

@@ -1,60 +1,28 @@
 A web application for tracking mining statistics for clients
 
-How to use:
-1. Initial setup
-Run npm install
+How to set up application:
+1. Install and configure mongodb
+2. Make sure you have node.js installed, using the command line locate the directory of the files and run npm install
 
-2. To run the application
-Windows
-Open up two instances of CMD and run :
-npm start and node app.js on separate windows
+How to run the application
+1. Run mongod.exe located in the mongodb installation directory using the command linenpm start and node app.js on separate windows
+2. Using the command line, locate the directory containing the files of the application and type in npm start to run the react front end
+3. In a separate command line window, locate the directory contain the files of the application and type node app.js to run the express back end 
+4. After this, you should be able to access the application through your browser on port 8080, e.g. 127.0.0.1:8080
 
 Dependencies installed so far:
-react
-react-dom
-tether
-jquery
-bootstrap
-react-bootstrap
-react-router-dom
-express
-body-parser
-nodemon
-mongoose
-bcrypt
-express-session
-connect-mongo
-axios
-
-Needed for bcrypt:
-npm install --save --production windows-build-tools
-npm install --save node-gyp
-npm install --save react
-
-Other dependencies which we might need:
-react
-react-dom
-create-react-app (For creating react applications)
-react-redux (Redux for storing states)
-body-parser
-express
-nodemon
-mongoose
-bcrypt
-express-session
-connect-mongo
-jquery
-popper.js
-react-bootstrap
-bootstrap
-react-router-active-component
-
-To preconfigure react app:
-npm install
-
-To run react app:
-npm start
-
-Common Errors:
-1. react-scripts not recognized as internal or external command
-Just run npm install and it should fix this error
+1. react
+2. react-dom
+3. tether
+4. jquery
+5. bootstrap
+6. react-bootstrap
+7. react-router-dom
+8. express
+9. body-parser
+10. nodemon
+11. mongoose
+12. bcrypt
+13. express-session
+14. connect-mongo
+15. axios

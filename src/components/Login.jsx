@@ -4,48 +4,76 @@ import axios from 'axios';
 export default class DashBoard extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {email:'', username:'', password:'', passwordConf:'', logemail: '', logpassword: '', isLoggedIn: false, userinfo: '', query_username: '', query_email: ''};
+		this.state = {email:'', username:'', password:'', passwordConf:'', logemail: '', logpassword: '', isLoggedIn: false, userinfo: '', 
+		query_username: '', query_email: '', returnError: false, errorMessage: ''  };
 		
 		this.handleRegistrationSubmit = this.handleRegistrationSubmit.bind(this);
 		this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
 	};
 	
 	handleRegistrationSubmit(event){
-		let currenComponent = this;
+		let responseState = this;
+		let errorState = this;
 		event.preventDefault();
 		axios.post('/api/login', { email: this.email.value, username: this.username.value, password: this.password.value, passwordConf: this.passwordConf.value })
 		.then(function(response) {
             console.log(response.data);
-			currenComponent.setState({isLoggedIn: true, query_username: response.data.username, query_email: response.data.email});
+			responseState.setState({isLoggedIn: true, query_username: response.data.username, query_email: response.data.email});
         }) 
 		.catch(function (error) {
-            console.log(error);
+			errorState.setState({returnError: true, errorMessage: error.response.data});
+            console.log(error.response.data);
         });
 	}
 	
 	handleLoginSubmit(event){
-		let currenComponent = this;
+		let responseState = this;
+		let errorState = this;
 		event.preventDefault();
 		axios.post('/api/login', { logemail: this.logemail.value, logpassword: this.logpassword.value })
 		.then(function(response) {
             console.log(response.data);
 			console.log(response.data.username);
-			currenComponent.setState({isLoggedIn: true, query_username: response.data.username, query_email: response.data.email});
+			responseState.setState({isLoggedIn: true, query_username: response.data.username, query_email: response.data.email});
         }) 
 		.catch(function (error) {
-            console.log(error);
+			errorState.setState({returnError: true, errorMessage: error.response});
+            errorState.log(error.response);
+        });
+	}
+	
+	checkLoggedIn(){
+		let responseState = this;
+		axios.get('/api/profile')
+		.then(function(response) {
+            console.log(response.data);
+			console.log(response.data.username);
+			responseState.setState({isLoggedIn: true, query_username: response.data.username, query_email: response.data.email});
+        }) 
+		.catch(function (error) {
+            console.log(error.response);
         });
 	}
 	
 	render(){
+		this.checkLoggedIn();
 		if(this.state.isLoggedIn){
 			return(
-				<div>
-					<p>{this.state.query_username}</p>
+				<div class="main">
+					<p>Logged in as {this.state.query_username}</p>
 					
-					<p>{this.state.query_email}</p>
+					<p>Email address: {this.state.query_email}</p>
+					
+					<p>Ethereum address: Inactive</p>
+					
+					<p>Zcash address: Inactive </p>
 				</div>
 			);
+		}
+		
+		let errorMsg = '';
+		if(this.state.returnError){
+			errorMsg = this.state.errorMessage;
 		}
 		
 		return(
@@ -80,6 +108,7 @@ export default class DashBoard extends React.Component {
 								</div>
 							</form>
 						</div>
+						<p>{errorMsg}</p>
 						<p><a href="#"> By clicking register, I agree to your terms</a></p>
 					</div>
 				</div>

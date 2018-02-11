@@ -1,6 +1,7 @@
 var mongoose = require('mongoose');
 var bcrypt = require('bcrypt');
 
+// Schema structure
 var UserSchema = new mongoose.Schema({
   email: {
     type: String,
@@ -18,9 +19,13 @@ var UserSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  passwordConf: {
-    type: String,
-    required: true,
+  ethAdd: {
+	type: String,
+	required:false,
+  },
+  zecAdd: {
+	type: String,
+	required:false,
   }
 });
 

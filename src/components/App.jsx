@@ -4,6 +4,9 @@ import NavBarFixed from './NavBarFixed.jsx';
 import HomePage from './HomePage.jsx';
 import DashBoard from './Login.jsx';
 
+//Application component, handles rendering of components on the page based on the route
+//and activities of the user.
+
 const App = () => (
   <div>
     <header>

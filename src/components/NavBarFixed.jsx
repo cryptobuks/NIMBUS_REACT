@@ -1,18 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import {Link} from 'react-router-dom';
 
 export default class NavBarFixed extends React.Component {
 	constructor(props) {
     super(props);
     this.state = {home:false, login:false, disabled:false};
-		if(props.active == 'home'){
+		if(props.active === 'home'){
 			this.state = {home:true};
 		}
-		else if(props.active == 'login'){
+		else if(props.active === 'login'){
 			this.state = {login:true};
 		}
-		else if(props.active == 'disabled'){
+		else if(props.active === 'disabled'){
 			this.state = {disabled:true};
 		}
   }
@@ -25,7 +23,7 @@ export default class NavBarFixed extends React.Component {
     return (
       <div>
         <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-          <a class="navbar-brand" href="#">Nimbus Mining</a>
+          <a class="navbar-brand" href="">Nimbus Mining</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
@@ -37,11 +35,11 @@ export default class NavBarFixed extends React.Component {
 							</li>
 
 							<li class={login ? 'nav-item active' : 'nav-item'}>
-								<a class="nav-link" href="/dashboard">Login</a>
+								<a class="nav-link" href="/dashboard">Dashboard</a>
 							</li>
 
 							<li class={disabled ? 'nav-item active' : 'nav-item'}>
-								<a class="nav-link disabled" href="#">Disabled</a>
+								<a class="nav-link disabled" href="">Nothing Here</a>
 							</li>
 
             </ul>

@@ -3,14 +3,14 @@ var router = express.Router();
 var User = require('../models/user');
 
 
-// GET route for reading data
+// Test GET route, should return hi when tested
 router.get('/test', function (req, res, next) {
 	res.send("hi");
 });
 
-
-//POST route for updating data
+//POST route for login and registration (Please split this into two routes soon)
 router.post('/api/login', function (req, res, next) {
+  //For registration
   // confirm that user typed same password twice
   if (req.body.password !== req.body.passwordConf) {
     var err = new Error('Passwords do not match.');
@@ -24,13 +24,16 @@ router.post('/api/login', function (req, res, next) {
     req.body.password &&
     req.body.passwordConf) {
 
+	//Saves input to a variable
     var userData = {
       email: req.body.email,
       username: req.body.username,
       password: req.body.password,
-      passwordConf: req.body.passwordConf,
+	  ethAdd: null,
+	  zecAdd: null,
     }
 
+	//Saves user data variable from input to database
     User.create(userData, function (error, user) {
       if (error) {
         return next(error);
@@ -39,7 +42,9 @@ router.post('/api/login', function (req, res, next) {
 		return res.redirect('/api/profile');
       }
     });
-
+	
+	
+  // For login
   } else if (req.body.logemail && req.body.logpassword) {
     User.authenticate(req.body.logemail, req.body.logpassword, function (error, user) {
       if (error || !user) {
@@ -58,7 +63,7 @@ router.post('/api/login', function (req, res, next) {
   }
 })
 
-// GET route after registering
+// GET route for checking profile, returns error 400 if not logged in
 router.get('/api/profile', function (req, res, next) {
   User.findById(req.session.userId)
     .exec(function (error, user) {
@@ -77,7 +82,7 @@ router.get('/api/profile', function (req, res, next) {
     });
 });
 
-// GET for logout logout
+// GET for logging out, destroys cookie/session stored in mongodb 
 router.get('/api//logout', function (req, res, next) {
   if (req.session) {
     // delete session object
