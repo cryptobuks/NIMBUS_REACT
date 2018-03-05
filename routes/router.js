@@ -15,7 +15,6 @@ router.post('/api/login', function (req, res, next) {
   if (req.body.password !== req.body.passwordConf) {
     var err = new Error('Passwords do not match.');
     err.status = 400;
-    res.send("passwords dont match");
     return next(err);
   }
 
@@ -36,7 +35,9 @@ router.post('/api/login', function (req, res, next) {
 	//Saves user data variable from input to database
     User.create(userData, function (error, user) {
       if (error) {
-        return next(error);
+		var err = new Error('Error in registration, user might already be registered');
+		err.status = 701;
+        return next(err);
       } else {
         req.session.userId = user._id;
 		return res.redirect('/api/profile');
@@ -83,14 +84,16 @@ router.get('/api/profile', function (req, res, next) {
 });
 
 // GET for logging out, destroys cookie/session stored in mongodb 
-router.get('/api//logout', function (req, res, next) {
+router.get('/api/logout', function (req, res, next) {
   if (req.session) {
     // delete session object
     req.session.destroy(function (err) {
       if (err) {
         return next(err);
       } else {
-        return res.redirect('/');
+		  var err = new Error('You are not logged in');
+			err.status = 700;
+			return next(err);
       }
     });
   }

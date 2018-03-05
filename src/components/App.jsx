@@ -14,9 +14,9 @@ const App = () => (
         <Route exact path='/'>
           <NavBarFixed  active ={'home'} />
         </Route>
-		<Route exact path='/dashboard'>
-          <NavBarFixed  active ={'login'} />
-        </Route>
+		<Route exact path ='/home'>
+			<NavBarFixed  active ={'disabled'} />
+		</Route>
       </Switch>
     </header>
 

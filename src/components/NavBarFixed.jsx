@@ -39,7 +39,7 @@ export default class NavBarFixed extends React.Component {
 							</li>
 
 							<li class={disabled ? 'nav-item active' : 'nav-item'}>
-								<a class="nav-link disabled" href="">Nothing Here</a>
+								<a class="nav-link disabled" href="/home">Nothing Here</a>
 							</li>
 
             </ul>
