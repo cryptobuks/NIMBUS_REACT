@@ -66,7 +66,7 @@ export default class DashBoard extends React.Component {
 		let responseState = this;
 		let errorState = this;
 		event.preventDefault();
-		axios.post('/api/login', { email: this.email.value, username: this.username.value, password: this.password.value, passwordConf: this.passwordConf.value })
+		axios.post('/api/signup', { email: this.email.value, username: this.username.value, password: this.password.value, passwordConf: this.passwordConf.value })
 		.then(function(response) {
             console.log(response.data);
 			responseState.setState({isLoggedIn: true, query_username: response.data.username, query_email: response.data.email});
@@ -162,6 +162,7 @@ export default class DashBoard extends React.Component {
 						<input type="password" name="logpassword" ref={(input) => { this.logpassword = input; }} required=""/>
 						<input type="submit" value="Login" class="button"/>
 						<p class="text-p"> <a href="#">Forgot password?</a> </p>
+						<p class="text-p errorcolor">{this.state.errorMessage}</p>
 					  </div>
 				</form>
 			</div>
@@ -173,6 +174,7 @@ export default class DashBoard extends React.Component {
 				<ul class="tab-group">
 					<li class="tab"><a onClick={this.toggleLogin} >Log In</a></li>
 					<li class="tab active"><a>Sign Up</a></li>
+					
 				</ul>
 				  <form onSubmit={this.handleRegistrationSubmit}>
 					  <h1>Sign Up</h1>
@@ -186,6 +188,8 @@ export default class DashBoard extends React.Component {
 						<label for="password">Confirm Password</label> 
 						<input type="password" name="passwordConf" ref={(input) => { this.passwordConf = input; }} required=""/>
 						<input type="submit" value="Sign up" class="button" />
+						<p class="text-p"><a href="#"> By clicking register, I agree to your terms.</a></p>
+						<p class="text-p errorcolor">{this.state.errorMessage}</p>
 					  </div>
 				  </form>
 			</div>

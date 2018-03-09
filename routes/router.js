@@ -2,14 +2,13 @@ var express = require('express');
 var router = express.Router();
 var User = require('../models/user');
 
-
 // Test GET route, should return hi when tested
 router.get('/test', function (req, res, next) {
 	res.send("hi");
 });
 
 //POST route for login and registration (Please split this into two routes soon)
-router.post('/api/login', function (req, res, next) {
+router.post('/api/signup', function (req, res, next) {
   //For registration
   // confirm that user typed same password twice
   if (req.body.password !== req.body.passwordConf) {
@@ -43,10 +42,17 @@ router.post('/api/login', function (req, res, next) {
 		return res.redirect('/api/profile');
       }
     });
-	
-	
-  // For login
-  } else if (req.body.logemail && req.body.logpassword) {
+  } else {
+    var err = new Error('All fields required.');
+    err.status = 400;
+    return next(err);
+  }
+})
+
+
+//POST route for login
+router.post('/api/login', function (req, res, next) {
+  if (req.body.logemail && req.body.logpassword) {
     User.authenticate(req.body.logemail, req.body.logpassword, function (error, user) {
       if (error || !user) {
         var err = new Error('Wrong email or password.');

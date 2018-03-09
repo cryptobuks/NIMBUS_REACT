@@ -55,7 +55,7 @@ UserSchema.pre('save', function (next) {
   var user = this;
   bcrypt.hash(user.password, 10, function (err, hash) {
     if (err) {
-	  err = new Error('Error in registration, user might already be registered.');
+	  err = new Error('Error in registration');
 	  err.status = 701;
       return next(err);
     }
