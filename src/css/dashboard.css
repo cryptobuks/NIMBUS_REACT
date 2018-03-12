@@ -107,3 +107,48 @@
 .forms .button:hover, .button:focus { background: #56ae26; }
 .text-p { text-align: right; }
 .text-p a { color: #1383ea; }
+
+.home-btn-mid {
+  text-align:center;
+}
+
+.anim-btn {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #e6e600;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 300;
+  padding: 10px;
+  transition: all 0.5s;
+  cursor: pointer;
+  vertical-align:middle;
+  margin: 10px auto;
+}
+
+.anim-btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.anim-btn span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.anim-btn:hover span {
+  padding-right: 25px;
+}
+
+.anim-btn:hover span:after {
+  opacity: 1;
+  right: 0;
+}

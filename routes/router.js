@@ -83,7 +83,6 @@ router.get('/api/profile', function (req, res, next) {
           return next(err);
         } else {
 		  return res.send(JSON.stringify({username: user.username, email: user.email}));
-          //return res.send('<h1>Name: </h1>' + user.username + '<h2>Mail: </h2>' + user.email + '<br><a type="button" href="/logout">Logout</a>')
         }
       }
     });

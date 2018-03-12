@@ -1,49 +1,100 @@
 import React from 'react';
 import axios from 'axios';
-import { render } from 'react-dom';
-import { Sidebar, SidebarItem } from 'react-responsive-sidebar';
-import FontAwesome from 'react-fontawesome';
 
 import '../css/dashboard.css';
+import '../css/sidebar.css';
 
 
 class DashboardWrapper extends React.Component{
 	constructor(props){
 		super(props);
-		this.state = {showLogin: false, showRegistration: false };
+		this.state = {dashSelected: true, profileSelected: false, dashHover: false, profileHover: false, homeHover: false, logoutHover:false,  };
+		this.handleDashHover = this.handleDashHover.bind(this);
+		this.handleProfileHover = this.handleProfileHover.bind(this);
+		this.handleHomeHover = this.handleHomeHover.bind(this);
+		this.handleLogoutHover = this.handleLogoutHover.bind(this);
 	};
 	
-	logout(){
-		this.props.handleLogout();
-		console.log("hi");
+	handleDashHover(){
+    this.setState({
+        dashHover: !this.state.dashHover
+    });
+	}
+	
+	handleProfileHover(){
+    this.setState({
+        profileHover: !this.state.profileHover
+    });
+	}
+	
+	handleHomeHover(){
+    this.setState({
+        homeHover: !this.state.homeHover
+    });
+	}
+	
+	handleLogoutHover(){
+    this.setState({
+        logoutHover: !this.state.logoutHover
+    });
 	}
 	
 	render(){
-		if(!this.props.handleLogout){
-			return null;
-		}
-		let items = [
-			<SidebarItem>
-				<FontAwesome
-					className='super-crazy-colors'
-					name='rocket'
-					size='1x'
-					style={{ textShadow: '0 1px 0 rgba(0, 0, 0, 0.1)' }}
-				/>
-				<span>   Dashboard</span>
-				
-			</SidebarItem>,
-			<SidebarItem>Profile</SidebarItem>,
-			<SidebarItem>Settings</SidebarItem>,
-		];
-		
         return (
 			<div>
-				 <Sidebar content={items}>
-					 <p>Email: {this.props.email}</p>
-					 <p>Username: {this.props.username}</p>
-					<button  onClick={this.props.handleLogout} >Logout</button>
-				</Sidebar>
+				<aside class="sidebar-left">
+
+					<a class="company-logo" href="#">Logo</a>
+
+					<div class="sidebar-links">
+						<a class={this.state.dashSelected || this.state.dashHover ? 'link-blue selected' : 'link-blue'} onMouseEnter={this.handleDashHover} onMouseLeave={this.handleDashHover} href="#"><i class="fa fa-picture-o"></i>Dashboard</a>
+						<a class={this.state.profileSelected || this.state.profileHover ? 'link-red selected' : 'link-red'} onMouseEnter={this.handleProfileHover} onMouseLeave={this.handleProfileHover} href="#"><i class="fa fa-male"></i>Profile</a>
+						<a class={this.state.homeHover ? 'link-yellow selected' : 'link-yellow'} onMouseEnter={this.handleHomeHover} onMouseLeave={this.handleHomeHover} href="/"><i class="fa fa-home"></i>Back to Home</a>
+						<a class={ this.state.logoutHover ? 'link-green selected' : 'link-green'} onMouseEnter={this.handleLogoutHover} onMouseLeave={this.handleLogoutHover} href="#" onClick={this.props.handleLogout}><i class="fa fa-sign-out"></i>Logout</a>
+					</div>
+
+				</aside>
+
+				<div class="main-content">
+				
+					<div class="row">
+						<h1>Welcome back, {this.props.username}</h1>
+						<br></br>
+						<br></br>
+						<br></br>
+					</div>
+					
+					
+					<div class="row">
+						<div class="card col-md-5 col-xs-12">
+							<div class="card-body">
+								<h5 class="card-title">Zcash Mining Statistics</h5>
+								<p class="card-text">
+									ZEC Address : Inactive
+									<br></br>
+									ZEC Balance : 0
+									<br></br>
+									Value (USD) : 0
+								</p>
+								<a href="#" class="btn btn-primary">Request an address</a>
+							</div>
+						</div>
+						<div class="col-md-2"></div>
+						<div class="card col-md-5 col-xs-12">
+							<div class="card-body">
+								<h5 class="card-title">Ethereum Mining Statistics</h5>
+								<p class="card-text">
+									ETH Address : Inactive
+									<br></br>
+									ETH Balance : 0
+									<br></br>
+									Value (USD) : 0
+								</p>
+								<a href="#" class="btn btn-primary">Request an address</a>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
         );
 	}
@@ -52,8 +103,7 @@ class DashboardWrapper extends React.Component{
 export default class DashBoard extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {email:'', username:'', password:'', passwordConf:'', logemail: '', logpassword: '', isLoggedIn: false, userinfo: '', 
-		query_username: '', query_email: '', returnError: false, errorMessage: '',  showLogin: true};
+		this.state = {isLoggedIn: false, query_username: '', query_email: '', returnError: false, errorMessage: '',  showLogin: true};
 		
 		this.handleRegistrationSubmit = this.handleRegistrationSubmit.bind(this);
 		this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
@@ -81,9 +131,11 @@ export default class DashBoard extends React.Component {
 		let responseState = this;
 		let errorState = this;
 		event.preventDefault();
+		const data = new FormData(event.target);
 		axios.post('/api/login', { logemail: this.logemail.value, logpassword: this.logpassword.value })
 		.then(function(response) {
             console.log(response.data);
+			console.log(data);
 			responseState.setState({isLoggedIn: true, query_username: response.data.username, query_email: response.data.email});
         }) 
 		.catch(function (error) {
@@ -128,7 +180,6 @@ export default class DashBoard extends React.Component {
 		
 	}
 	
-	
 	render(){
 		if(this.state.isLoggedIn){
 			return(
@@ -141,57 +192,62 @@ export default class DashBoard extends React.Component {
 			this.checkLoggedIn();
 		}
 		
-		let errorMsg = '';
-		if(this.state.returnError){
-			errorMsg = this.state.errorMessage;
-		}
-		
 		if(this.state.showLogin){
 			return(
-			<div class="forms">
-				<ul class="tab-group">
-					<li class="tab active"><a >Log In</a></li>
-					<li class="tab"><a onClick={this.toggleLogin} >Sign Up</a></li>
-				</ul>
-				<form onSubmit={this.handleLoginSubmit}>
-					  <h1>Login</h1>
-					  <div class="input-field">
-						<label for="logemail">Email</label>
-						<input type="email" name="logemail" ref={(input) => { this.logemail = input; }} required=""/>
-						<label for="logpassword" >Password</label> 
-						<input type="password" name="logpassword" ref={(input) => { this.logpassword = input; }} required=""/>
-						<input type="submit" value="Login" class="button"/>
-						<p class="text-p"> <a href="#">Forgot password?</a> </p>
-						<p class="text-p errorcolor">{this.state.errorMessage}</p>
-					  </div>
-				</form>
+			<div>
+				<div class="home-btn-mid">
+					<a href="/"><button class="anim-btn"><span>Back to Home Page</span></button></a>
+				</div>
+				<div class="forms">
+					<ul class="tab-group">
+						<li class="tab active"><a >Log In</a></li>
+						<li class="tab"><a onClick={this.toggleLogin} >Sign Up</a></li>
+					</ul>
+					<form onSubmit={this.handleLoginSubmit}>
+						  <h1>Login</h1>
+						  <div class="input-field">
+							<label for="logemail">Email</label>
+							<input type="email" name="logemail" ref={(input) => { this.logemail = input; }} required=""/>
+							<label for="logpassword" >Password</label> 
+							<input type="password" name="logpassword" ref={(input) => { this.logpassword = input; }} required=""/>
+							<input type="submit" value="Login" class="button"/>
+							<p class="text-p"> <a href="#">Forgot password?</a> </p>
+							<p class="text-p errorcolor">{this.state.errorMessage}</p>
+						  </div>
+					</form>
+				</div>
 			</div>
 			);
 		}
 		
 		return(
-			<div class="forms">
-				<ul class="tab-group">
-					<li class="tab"><a onClick={this.toggleLogin} >Log In</a></li>
-					<li class="tab active"><a>Sign Up</a></li>
-					
-				</ul>
-				  <form onSubmit={this.handleRegistrationSubmit}>
-					  <h1>Sign Up</h1>
-					  <div class="input-field">
-						<label for="email">Email</label> 
-						<input type="email" name="email" ref={(input) => { this.email = input; }} required=""/>
-						<label for="email">Username</label> 
-						<input type="text" name="username" ref={(input) => { this.username = input; }} required=""/>
-						<label for="password">Password</label> 
-						<input type="password" name="password" ref={(input) => { this.password = input; }} required=""/>
-						<label for="password">Confirm Password</label> 
-						<input type="password" name="passwordConf" ref={(input) => { this.passwordConf = input; }} required=""/>
-						<input type="submit" value="Sign up" class="button" />
-						<p class="text-p"><a href="#"> By clicking register, I agree to your terms.</a></p>
-						<p class="text-p errorcolor">{this.state.errorMessage}</p>
-					  </div>
-				  </form>
+			<div>
+				<div class="home-btn-mid">
+					<a href="/"><button class="anim-btn"><span>Back to Home Page</span></button></a>
+				</div>
+				<div class="forms">
+					<ul class="tab-group">
+						<li class="tab"><a onClick={this.toggleLogin} >Log In</a></li>
+						<li class="tab active"><a>Sign Up</a></li>
+						
+					</ul>
+					  <form onSubmit={this.handleRegistrationSubmit}>
+						  <h1>Sign Up</h1>
+						  <div class="input-field">
+							<label for="email">Email</label> 
+							<input type="email" name="email" ref={(input) => { this.email = input; }} required=""/>
+							<label for="email">Username</label> 
+							<input type="text" name="username" ref={(input) => { this.username = input; }} required=""/>
+							<label for="password">Password</label> 
+							<input type="password" name="password" ref={(input) => { this.password = input; }} required=""/>
+							<label for="password">Confirm Password</label> 
+							<input type="password" name="passwordConf" ref={(input) => { this.passwordConf = input; }} required=""/>
+							<input type="submit" value="Sign up" class="button" />
+							<p class="text-p"><a href="#"> By clicking register, I agree to your terms.</a></p>
+							<p class="text-p errorcolor">{this.state.errorMessage}</p>
+						  </div>
+					  </form>
+				</div>
 			</div>
 		);
 	}
