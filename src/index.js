@@ -5,11 +5,11 @@ import { BrowserRouter } from 'react-router-dom'
 import './include/bootstrap'
 import './index.css';
 
-import App from './components/App.jsx';
+import RouteManager from './components/RouteManager.jsx';
 
 // ========================================
 ReactDOM.render((
   <BrowserRouter>
-    <App />
+    <RouteManager />
   </BrowserRouter>
 ), document.getElementById('root'))

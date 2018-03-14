@@ -2,105 +2,10 @@ import React from 'react';
 import axios from 'axios';
 
 import '../css/dashboard.css';
-import '../css/sidebar.css';
 
+import ApplicationWrapper from '../components/ApplicationWrapper.jsx';
 
-class DashboardWrapper extends React.Component{
-	constructor(props){
-		super(props);
-		this.state = {dashSelected: true, profileSelected: false, dashHover: false, profileHover: false, homeHover: false, logoutHover:false,  };
-		this.handleDashHover = this.handleDashHover.bind(this);
-		this.handleProfileHover = this.handleProfileHover.bind(this);
-		this.handleHomeHover = this.handleHomeHover.bind(this);
-		this.handleLogoutHover = this.handleLogoutHover.bind(this);
-	};
-	
-	handleDashHover(){
-    this.setState({
-        dashHover: !this.state.dashHover
-    });
-	}
-	
-	handleProfileHover(){
-    this.setState({
-        profileHover: !this.state.profileHover
-    });
-	}
-	
-	handleHomeHover(){
-    this.setState({
-        homeHover: !this.state.homeHover
-    });
-	}
-	
-	handleLogoutHover(){
-    this.setState({
-        logoutHover: !this.state.logoutHover
-    });
-	}
-	
-	render(){
-        return (
-			<div>
-				<aside class="sidebar-left">
-
-					<a class="company-logo" href="#">Logo</a>
-
-					<div class="sidebar-links">
-						<a class={this.state.dashSelected || this.state.dashHover ? 'link-blue selected' : 'link-blue'} onMouseEnter={this.handleDashHover} onMouseLeave={this.handleDashHover} href="#"><i class="fa fa-picture-o"></i>Dashboard</a>
-						<a class={this.state.profileSelected || this.state.profileHover ? 'link-red selected' : 'link-red'} onMouseEnter={this.handleProfileHover} onMouseLeave={this.handleProfileHover} href="#"><i class="fa fa-male"></i>Profile</a>
-						<a class={this.state.homeHover ? 'link-yellow selected' : 'link-yellow'} onMouseEnter={this.handleHomeHover} onMouseLeave={this.handleHomeHover} href="/"><i class="fa fa-home"></i>Back to Home</a>
-						<a class={ this.state.logoutHover ? 'link-green selected' : 'link-green'} onMouseEnter={this.handleLogoutHover} onMouseLeave={this.handleLogoutHover} href="#" onClick={this.props.handleLogout}><i class="fa fa-sign-out"></i>Logout</a>
-					</div>
-
-				</aside>
-
-				<div class="main-content">
-				
-					<div class="row">
-						<h1>Welcome back, {this.props.username}</h1>
-						<br></br>
-						<br></br>
-						<br></br>
-					</div>
-					
-					
-					<div class="row">
-						<div class="card col-md-5 col-xs-12">
-							<div class="card-body">
-								<h5 class="card-title">Zcash Mining Statistics</h5>
-								<p class="card-text">
-									ZEC Address : Inactive
-									<br></br>
-									ZEC Balance : 0
-									<br></br>
-									Value (USD) : 0
-								</p>
-								<a href="#" class="btn btn-primary">Request an address</a>
-							</div>
-						</div>
-						<div class="col-md-2"></div>
-						<div class="card col-md-5 col-xs-12">
-							<div class="card-body">
-								<h5 class="card-title">Ethereum Mining Statistics</h5>
-								<p class="card-text">
-									ETH Address : Inactive
-									<br></br>
-									ETH Balance : 0
-									<br></br>
-									Value (USD) : 0
-								</p>
-								<a href="#" class="btn btn-primary">Request an address</a>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-        );
-	}
-}
-
-export default class DashBoard extends React.Component {
+export default class Login extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {isLoggedIn: false, query_username: '', query_email: '', returnError: false, errorMessage: '',  showLogin: true};
@@ -184,7 +89,7 @@ export default class DashBoard extends React.Component {
 		if(this.state.isLoggedIn){
 			return(
 				<div class="main">
-					<DashboardWrapper username={this.state.query_username} email={this.state.query_email}  handleLogout={this.handleLogout}/>
+					<ApplicationWrapper username={this.state.query_username} email={this.state.query_email}  handleLogout={this.handleLogout}/>
 				</div>
 			);
 		}

@@ -2,12 +2,12 @@ import React from 'react'
 import { Switch, Route } from 'react-router-dom'
 import NavBarFixed from './NavBarFixed.jsx';
 import HomePage from './HomePage.jsx';
-import DashBoard from './Login.jsx';
+import Login from './Login.jsx';
 
 //Application component, handles rendering of components on the page based on the route
 //and activities of the user.
 
-const App = () => (
+const RouteManager = () => (
   <div>
     <header>
       <Switch>
@@ -24,10 +24,10 @@ const App = () => (
       <Switch>
         <Route exact path='/' component={HomePage}/>
         <Route path='/home' component={HomePage}/>
-		<Route path='/dashboard' component={DashBoard}/>
+		<Route path='/dashboard' component={Login}/>
       </Switch>
     </main>
   </div>
 )
 
-export default App
+export default RouteManager

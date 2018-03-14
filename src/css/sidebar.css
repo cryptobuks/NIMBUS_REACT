@@ -2,11 +2,10 @@
 
 .main-content {
 	font-family: Arial, Helvetica, sans-serif;
-	max-width: 600px;
+	max-width: 850px;
 	padding-top: 40px;
 	margin: 0 0 40px 210px;
 }
-
 
 /* The left sidebar */
 
@@ -63,7 +62,7 @@
 }
 
 .sidebar-left .sidebar-links a.selected{
-	background-color: #ffffff;
+	background-color: #42465E;
 	color:  #7c8085;
 	font-size: 12px;
 	font-weight: bold;
@@ -170,10 +169,9 @@
 
 }
 
-/*	Removing margins and paddings from the body, so that
-    the sidebar takes the full height of the page */
-
-body {
-	margin: 0;
-	padding: 0;
+.new-section {
+    height: 100%;
+    padding-top: 150px;
+    text-align: center;
+    background: #eee;
 }
