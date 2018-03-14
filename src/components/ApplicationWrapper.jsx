@@ -55,7 +55,7 @@ export default class ApplicationWrapper extends React.Component{
 				</aside>
 
 				<div class="main-content">
-					<DashboardContent username={this.props.username}/>
+					<DashboardContent username={this.props.username} zecAdd={this.props.zecAdd} ethAdd={this.props.ethAdd}/>
 				</div>
 			</div>
         );

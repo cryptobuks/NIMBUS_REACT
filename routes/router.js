@@ -82,7 +82,7 @@ router.get('/api/profile', function (req, res, next) {
           err.status = 400;
           return next(err);
         } else {
-		  return res.send(JSON.stringify({username: user.username, email: user.email}));
+		  return res.send(JSON.stringify({username: user.username, email: user.email, zecAdd: user.zecAdd, ethAdd: user.ethAdd}));
         }
       }
     });

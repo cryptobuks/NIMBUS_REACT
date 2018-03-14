@@ -8,7 +8,7 @@ import ApplicationWrapper from '../components/ApplicationWrapper.jsx';
 export default class Login extends React.Component {
 	constructor(props){
 		super(props);
-		this.state = {isLoggedIn: false, query_username: '', query_email: '', returnError: false, errorMessage: '',  showLogin: true};
+		this.state = {isLoggedIn: false, query_username: '', query_email: '', query_zecAdd: null, query_ethAdd: null, returnError: false, errorMessage: '',  showLogin: true};
 		
 		this.handleRegistrationSubmit = this.handleRegistrationSubmit.bind(this);
 		this.handleLoginSubmit = this.handleLoginSubmit.bind(this);
@@ -68,7 +68,8 @@ export default class Login extends React.Component {
 		axios.get('/api/profile')
 		.then(function(response) {
             console.log(response.data);
-			responseState.setState({isLoggedIn: true, query_username: response.data.username, query_email: response.data.email});
+			responseState.setState({isLoggedIn: true, query_username: response.data.username, query_email: response.data.email, 
+			query_ethAdd: response.data.ethAdd, query_zecAdd: response.data.zecAdd,});
         }) 
 		.catch(function (error) {
             console.log(error.response);
@@ -89,7 +90,10 @@ export default class Login extends React.Component {
 		if(this.state.isLoggedIn){
 			return(
 				<div class="main">
-					<ApplicationWrapper username={this.state.query_username} email={this.state.query_email}  handleLogout={this.handleLogout}/>
+					<ApplicationWrapper username={this.state.query_username} 
+					email={this.state.query_email} ethAdd={this.state.query_ethAdd}
+					zecAdd={this.state.query_zecAdd}
+					handleLogout={this.handleLogout}/>
 				</div>
 			);
 		}

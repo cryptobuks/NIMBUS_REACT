@@ -8,7 +8,7 @@ var MongoStore = require('connect-mongo')(session);
 //Specify port for express to run on
 const port = process.env.PORT || 3000;
 
-//connect to MongoDB
+//Connect to MongoDB, please create a user and id to secure your database
 mongoose.connect('mongodb://localhost/nimbusGroup');
 var db = mongoose.connection;
 
@@ -19,7 +19,7 @@ db.once('open', function () {
 
 //Sessions for keeping track of login token, change the secret used in cookie generation for your own use
 app.use(session({
-  secret: 'work hard',
+  secret: 'changethis',
   resave: true,
   saveUninitialized: false,
   store: new MongoStore({
@@ -27,7 +27,7 @@ app.use(session({
   })
 }));
 
-// parse incoming requests
+//Parse incoming requests
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
