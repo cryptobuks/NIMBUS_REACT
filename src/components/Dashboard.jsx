@@ -45,6 +45,21 @@ export default class DashboardContent extends React.Component{
         });
 	}
 	
+	getEthBalance(){
+		let responseState = this;
+		var ethBalanceAPI = 'https://api.etherscan.io/api?module=account&action=balance&address=';
+		var address = this.state.ethAdd;
+		var res = ethBalanceAPI.concat(address);
+		axios.get(res)
+		.then(function(response) {
+            console.log(response.data.result);
+			responseState.setState({ethBalance:(response.data.result/1000000000000000000)});
+        }) 
+		.catch(function (error) {
+            console.log(error.response);
+        });
+	}
+	
 	getZecStat(){
 		let responseState = this;
 		axios.get('https://api.coinmarketcap.com/v1/ticker/zcash/?convert=MYR')
@@ -85,6 +100,7 @@ export default class DashboardContent extends React.Component{
 			return (
 				<div>
 					{this.getZecBalance()}
+					{this.getEthBalance()}
 					<div class="row">
 						<h1>Welcome back, {this.state.username}!</h1>
 						<br></br>
@@ -98,13 +114,13 @@ export default class DashboardContent extends React.Component{
 							<div class="card-body">
 								<h5 class="card-title"><img src={zec_img} alt="ZEC"></img> Zcash (ZEC) Mining Statistics</h5>
 								<p class="card-text">
-									ZEC Address : {this.state.zecAdd ? this.state.zecAdd : 'Inactive'}
+									<b>ZEC Address</b>: {this.state.zecAdd ? this.state.zecAdd : 'Inactive'}
 									<br></br>
-									ZEC Balance : {this.state.zecBalance}
+									<b>ZEC Balance</b>: {this.state.zecBalance}
 									<br></br>
-									Total Value (MYR) : RM { (Math.round(this.state.zecBalance * this.state.zecMYR * 100) / 100 ).toFixed(2)}
+									<b>Total Value (MYR)</b>: RM { (Math.round(this.state.zecBalance * this.state.zecMYR * 100) / 100 ).toFixed(2)}
 									<br></br>
-									1 ZEC = RM {(Math.round(this.state.zecMYR * 100) / 100).toFixed(2)}
+									<i>1 ZEC = RM {(Math.round(this.state.zecMYR * 100) / 100).toFixed(2)}</i>
 								</p>
 								<a href="#" class={this.state.zecAdd ? "btn btn-secondary disabled" : "btn btn-primary"}>
 									{this.state.zecAdd ? "Wallet Address Assigned/Requested" : "Request an Address"}
@@ -121,13 +137,13 @@ export default class DashboardContent extends React.Component{
 							<div class="card-body">
 								<h5 class="card-title"><img src={eth_img} alt="ETH"></img> Ethereum (ETH) Mining Statistics</h5>
 								<p class="card-text">
-									ETH Address : {this.state.ethAdd ? this.state.ethAdd : 'Inactive'}
+									<b>ETH Address</b>: {this.state.ethAdd ? this.state.ethAdd : 'Inactive'}/
 									<br></br>
-									ETH Balance : {this.state.ethBalance}
+									<b>ETH Balance</b>: {this.state.ethBalance}
 									<br></br>
-									Total Value (MYR) : RM { (Math.round(this.state.ethBalance * this.state.zecMYR * 100) / 100 ).toFixed(2)}
+									<b>Total Value (MYR)</b>: RM { (Math.round(this.state.ethBalance * this.state.ethMYR * 100) / 100 ).toFixed(2)}
 									<br></br>
-									1 ETH = RM {(Math.round(this.state.ethMYR * 100) / 100).toFixed(2)}
+									<i>1 ETH = RM {(Math.round(this.state.ethMYR * 100) / 100).toFixed(2)}</i>
 								</p>
 								<a href="#" class={this.state.ethAdd ? "btn btn-secondary disabled" : "btn btn-primary"}>
 									{this.state.ethAdd ? "Wallet Address Assigned/Requested" : "Request an Address"}
@@ -145,17 +161,17 @@ export default class DashboardContent extends React.Component{
 							<div class="card-body">
 								<h5 class="card-title"> <img src={zec_img} alt="ZEC"></img> Zcash (ZEC)</h5>
 								<p class="card-text">
-									Change in Price (24hrs) : {this.state.zec24hr}%
+									<b>Change in Price (24hrs)</b>: <span class={this.state.zec24hr < 0 ? 'redText' : 'greenText'}>{this.state.zec24hr}%</span>
 									<br></br>
-									ZEC Value (MYR) : {(Math.round(this.state.zecMYR * 100) / 100).toFixed(2)}
+									<b>ZEC Value (MYR)</b>: {(Math.round(this.state.zecMYR * 100) / 100).toFixed(2)}
 									<br></br>
-									ZEC Value (USD) : {(Math.round(this.state.zecUSD * 100) / 100).toFixed(2)}
+									<b>ZEC Value (USD)</b>: {(Math.round(this.state.zecUSD * 100) / 100).toFixed(2)}
 									<br></br>
-									Circulating Supply : {this.state.zecSply}
+									<b>Circulating Supply</b>: {this.state.zecSply}
 									<br></br>
-									Total Market Cap (MYR) : RM {(Math.round(this.state.zecMktMYR * 100) / 100).toFixed(2)}
+									<b>Total Market Cap (MYR)</b>: RM {(Math.round(this.state.zecMktMYR * 100) / 100).toFixed(2)}
 									<br></br>
-									Total Market Cap (USD) : $ {(Math.round(this.state.zecMktUSD * 100) / 100).toFixed(2)}
+									<b>Total Market Cap (USD)</b>: $ {(Math.round(this.state.zecMktUSD * 100) / 100).toFixed(2)}
 								</p>
 							</div>
 						</div>
@@ -163,17 +179,17 @@ export default class DashboardContent extends React.Component{
 							<div class="card-body">
 								<h5 class="card-title"><img src={eth_img} alt="ETH"></img>Ethereum (ETH)</h5>
 								<p class="card-text">
-									Change in Price (24hrs) : {this.state.eth24hr}%
+									<b>Change in Price (24hrs)</b>: <span class={this.state.eth24hr < 0 ? 'redText' : 'greenText'}>{this.state.eth24hr}%</span>
 									<br></br>
-									ETH Value (MYR) : {(Math.round(this.state.ethMYR * 100) / 100).toFixed(2)}
+									<b>ETH Value (MYR)</b>: {(Math.round(this.state.ethMYR * 100) / 100).toFixed(2)}
 									<br></br>
-									ETH Value (USD) : {(Math.round(this.state.ethUSD * 100) / 100).toFixed(2)}
+									<b>ETH Value (USD)</b>: {(Math.round(this.state.ethUSD * 100) / 100).toFixed(2)}
 									<br></br>
-									Circulating Supply : {this.state.ethSply}
+									<b>Circulating Supply</b>: {this.state.ethSply}
 									<br></br>
-									Total Market Cap (MYR) : RM {(Math.round(this.state.ethMktMYR * 100) / 100).toFixed(2)}
+									<b>Total Market Cap (MYR)</b>: RM {(Math.round(this.state.ethMktMYR * 100) / 100).toFixed(2)}
 									<br></br>
-									Total Market Cap (USD) : $ {(Math.round(this.state.ethMktUSD * 100) / 100).toFixed(2)}
+									<b>Total Market Cap (USD)</b>: $ {(Math.round(this.state.ethMktUSD * 100) / 100).toFixed(2)}
 								</p>
 							</div>
 						</div>

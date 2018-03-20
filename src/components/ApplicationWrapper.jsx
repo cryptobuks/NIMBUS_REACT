@@ -43,7 +43,7 @@ export default class ApplicationWrapper extends React.Component{
 			<div>
 				<aside class="sidebar-left">
 
-					<a class="company-logo" href="#">Logo</a>
+					<a class="company-logo" href="#">NM</a>
 
 					<div class="sidebar-links">
 						<a class={this.state.dashSelected || this.state.dashHover ? 'link-blue selected' : 'link-blue'} onMouseEnter={this.handleDashHover} onMouseLeave={this.handleDashHover} href="#"><i class="fa fa-picture-o"></i>Dashboard</a>

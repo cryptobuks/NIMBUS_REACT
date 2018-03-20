@@ -2,6 +2,14 @@
   color: red;
 }
 
+.redText{
+  color: red;
+}
+
+.greenText{
+  color: green;
+}
+
 * {
 	margin: 0;
 	padding: 0;
